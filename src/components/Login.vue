@@ -52,7 +52,7 @@
             .then(resp => {
               if (resp.data.code === 200) {
                 var data = resp.data
-                _this.$store.commit('login', data.data)
+                _this.$store.commit('login', _this.loginForm)
                 var path = _this.$route.query.redirect
                 _this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
               }

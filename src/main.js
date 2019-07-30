@@ -3,12 +3,12 @@
 import Vue from 'vue'           // vue模块在node_modules
 import App from './App'         // App.vue文件中的组件
 import router from './router'   // router文件夹中定义的路由
+import store from './store'
 import axios from 'axios'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
-import store from './store'
 
 // import store from './store'
 
@@ -23,13 +23,15 @@ Vue.use(ElementUI)
 Vue.use(mavonEditor)
 
 
-
+// 钩子函数：在某些时机会被调用的函数，需要添加对store的引用
+// 使用router.beforeEach()，则表示访问每一个路由前调用。
 router.beforeEach((to, from, next) => {
+    // 判断访问的路径是否需要登录，如果需要则判断store中是否存在user的信息
     if (to.meta.requireAuth) {
-      if (store.state.user.username) {
+      if (store.state.user.username) {    // 存在则放行
         console.log(store.state.user.username)
         next()
-      } else {
+      } else {    // 不存在则跳转到登录页面，并且存储当前的页面，登录成功后返回当前页面
         next({
           path: 'login',
           query: {redirect: to.fullPath}

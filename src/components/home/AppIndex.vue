@@ -1,14 +1,17 @@
-<!-- 首页组件 -->
 <template>
-    <div>
-      Hello World!
-    </div>
+  <el-container>
+    <el-main>
+      <carousel></carousel>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
-    export default {
-        name: "AppIndex"
-    }
+  import Carousel from './Carousel'
+  export default {
+    name: 'AppIndex',
+    components:{Carousel}
+  }
 </script>
 
 <style scoped>
